@@ -12,7 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.androidcomposecanvas.ui.theme.AndroidComposeCanvasTheme
 
 class MainActivity : ComponentActivity() {
@@ -37,6 +39,11 @@ class MainActivity : ComponentActivity() {
                         end = Offset(x = 0f, y = canvasHeight),
                         color = Color.Blue
                     )
+
+                    //Scaling the drawing content
+                    scale(scaleX = 1f, scaleY = 1f){
+                        drawCircle(color = Color.Blue, radius = 120.dp.toPx())
+                    }
                 }
             }
         }
