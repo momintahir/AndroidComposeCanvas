@@ -12,7 +12,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.inset
+import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.graphics.drawscope.scale
+import androidx.compose.ui.graphics.drawscope.translate
+import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.androidcomposecanvas.ui.theme.AndroidComposeCanvasTheme
@@ -22,18 +26,21 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AndroidComposeCanvasTheme {
-
                 //Simple rectangle
                 Canvas(modifier = Modifier.fillMaxSize()) {
                     val rectSize = size / 2f
-                    drawRect(
-                        color = Color.Magenta,
-                        size = rectSize
-                    )
+                    inset(horizontal = 50f, vertical = 100f) {
+                        drawRect(
+                            color = Color.Magenta,
+                            size = rectSize
+                        )
+                    }
+
 
                     //Drawing a line
                     val canvasWidth = size.width
                     val canvasHeight = size.height
+
                     drawLine(
                         start = Offset(x = canvasWidth, y = 0f),
                         end = Offset(x = 0f, y = canvasHeight),
@@ -41,8 +48,18 @@ class MainActivity : ComponentActivity() {
                     )
 
                     //Scaling the drawing content
-                    scale(scaleX = 1f, scaleY = 1f){
-                        drawCircle(color = Color.Blue, radius = 120.dp.toPx())
+                    translate(left = 100f, top = 300f) {
+                        scale(scaleX = 1f, scaleY = 1f){
+                            drawCircle(color = Color.Blue, radius = 120.dp.toPx())
+                        }
+                    }
+
+                    rotate(degrees = 34F) {
+                        drawRect(
+                            color = Color.Gray,
+                            topLeft = Offset(x = size.width / 3F, y = size.height / 3F),
+                            size = size / 3F
+                        )
                     }
                 }
             }
