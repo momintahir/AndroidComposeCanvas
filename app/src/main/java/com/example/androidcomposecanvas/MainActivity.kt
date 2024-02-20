@@ -4,14 +4,18 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.inset
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.graphics.drawscope.scale
@@ -54,7 +58,7 @@ class MainActivity : ComponentActivity() {
                         }
                     }
 
-                    rotate(degrees = 34F) {
+                        rotate(degrees = 34F) {
                         drawRect(
                             color = Color.Gray,
                             topLeft = Offset(x = size.width / 3F, y = size.height / 3F),
@@ -62,6 +66,20 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                 }
+                Spacer(
+                    modifier = Modifier
+                        .drawWithCache {
+                            val path = Path()
+                            path.moveTo(0f, 0f)
+                            path.lineTo(x = size.width/2f,y=size.height)
+                            path.lineTo(size.width, 0f)
+                            path.close()
+                            onDrawBehind {
+                                drawPath(path, Color.Magenta, style = Stroke(width = 10f))
+                            }
+                        }
+                        .fillMaxSize()
+                )
             }
         }
     }
